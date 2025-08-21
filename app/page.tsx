@@ -103,8 +103,10 @@ export default function MythBustersPage() {
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <nav className="max-w-6xl mx-auto px-6 py-4">
-          <div className={`flex items-center justify-between w-full gap-4 ${logoLoaded ? "logo-entrance" : "opacity-0"}`}>
-            <AnimatedLogo />
+          <div className={`flex items-center gap-4 ${logoLoaded ? "logo-entrance" : "opacity-0"}`}>
+            <div className="flex-1">
+              <AnimatedLogo />
+            </div>
             <h1 className="font-serif font-bold text-4xl text-gray-900">
               Myth<br/>
               Busters
