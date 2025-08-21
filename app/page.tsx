@@ -14,6 +14,7 @@ export default function MythBustersPage() {
   const [isFlipping, setIsFlipping] = useState(false)
   const [myths, setMyths] = useState<Myth[]>([])
   const [currentWeekInfo, setCurrentWeekInfo] = useState<{ myth: Myth; week: any } | null>(null)
+  const [burst, setBurst] = useState(false)
 
   const contentManager = useContentManager()
 
@@ -46,6 +47,9 @@ export default function MythBustersPage() {
 
   const handleMythBust = useCallback(() => {
     if (isFlipping) return
+
+    setBurst(true);
+    setTimeout(() => setBurst(false), 1000); // Reset burst after animation
 
     setIsFlipping(true)
 
@@ -284,7 +288,7 @@ export default function MythBustersPage() {
           <div className="flex flex-col items-center justify-center gap-6 sm:gap-8">
             <AnimatedLogo />
             <p className="text-gray-600 text-lg sm:text-xl max-w-2xl px-4">
-              Empowering the next generation of entrepreneurs through education and community.
+                 Powered by Purpose, Driven by Vision
             </p>
           </div>
         </div>
@@ -309,6 +313,16 @@ export default function MythBustersPage() {
             font-size: 2rem !important;
             line-height: 2.25rem !important;
           }
+        }
+
+        @keyframes burst {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
+        }
+
+        .burst-animation {
+          animation: burst 0.6s ease-out;
         }
       `}</style>
     </div>
