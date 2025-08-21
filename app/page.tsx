@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { useContentManager } from "@/lib/content-manager"
+import { AnimatedLogo } from "@/components/animated-logo"
 import type { Myth } from "@/lib/types"
 
 export default function MythBustersPage() {
@@ -66,10 +67,18 @@ export default function MythBustersPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-gray-600 font-medium">Loading...</p>
+      <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
+        <div className="text-center">
+          <div className="scale-in-bounce mb-8">
+            <div className="w-[600px] h-[200px] relative">
+              <AnimatedLogo />
+            </div>
+          </div>
+          <div className="loading-dots opacity-70">
+            <span className="dot"></span>
+            <span className="dot"></span>
+            <span className="dot"></span>
+          </div>
         </div>
       </div>
     )
@@ -93,31 +102,34 @@ export default function MythBustersPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
-        <nav className="max-w-4xl mx-auto px-6 py-4">
-          <div className={`flex items-center space-x-3 ${logoLoaded ? "logo-entrance" : "opacity-0"}`}>
-            <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">E</span>
-            </div>
-            <span className="font-serif font-bold text-xl text-gray-900">ECell</span>
+        <nav className="max-w-6xl mx-auto px-6 py-4">
+          <div className={`flex items-center justify-between w-full gap-4 ${logoLoaded ? "logo-entrance" : "opacity-0"}`}>
+            <AnimatedLogo />
+            <h1 className="font-serif font-bold text-4xl text-gray-900">
+              Myth<br/>
+              Busters
+            </h1>
           </div>
         </nav>
-      </header>
-
-      {/* Hero Section */}
-      <main className="max-w-4xl mx-auto px-6 py-16">
-        <div className="text-center mb-16 fade-in-up">
-          <div className="inline-block mb-4">
-            <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium uppercase tracking-wide">
-              Wisdom Wednesday
+      </header>      {/* Hero Section */}
+      <main className="max-w-6xl mx-auto px-6 py-16">
+        <div className="mb-16 fade-in-up flex flex-col items-center text-center">
+          <div className="mb-6">
+            <span className="bg-[#EEF1FF] text-[#6366F1] px-4 py-2 rounded-full text-sm font-medium">
+              WISDOM WEDNESDAY
             </span>
           </div>
 
-          <h1 className="font-serif font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
-            Startup
-            <span className="block text-indigo-600">Myth Busters</span>
-          </h1>
+          <div className="mb-12">
+            <h1 className="font-serif font-bold text-6xl md:text-7xl mb-0">
+              Startup
+            </h1>
+            <div className="text-[#6366F1] font-serif font-bold text-6xl md:text-7xl">
+              Myth Busters
+            </div>
+          </div>
 
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 max-w-2xl leading-relaxed mx-auto">
             Separating startup facts from fiction. Interactive myth-busting for the next generation of entrepreneurs.
           </p>
 
@@ -130,46 +142,48 @@ export default function MythBustersPage() {
           )}
         </div>
 
-        <div className="max-w-2xl mx-auto mb-12">
-          <div className={`card p-8 smooth-transition hover-lift ${isFlipping ? "card-flip" : ""}`}>
+        <div className="max-w-3xl mx-auto mb-12">
+          <div className={`bg-white rounded-2xl shadow-lg p-8 sm:p-10 smooth-transition hover-lift ${isFlipping ? "card-flip" : ""}`}>
             <div className="text-center">
               {/* Category and difficulty badges */}
-              <div className="flex justify-center items-center space-x-3 mb-6">
-                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                <span className="bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
                   {currentMyth.category}
                 </span>
-                <span className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-sm font-medium">
                   {currentMyth.difficulty}
                 </span>
               </div>
 
               {!showReality ? (
-                <div className="space-y-6">
-                  <h2 className="font-serif font-bold text-2xl md:text-3xl text-gray-900">
+                <div className="space-y-8 text-center">
+                  <h2 className="font-serif font-bold text-5xl sm:text-6xl text-gray-900">
                     Myth #{currentMythIndex + 1}
                   </h2>
 
-                  <p className="text-lg md:text-xl text-gray-700 leading-relaxed">"{currentMyth.myth}"</p>
+                  <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed max-w-2xl mx-auto">"{currentMyth.myth}"</p>
 
-                  <Button
-                    onClick={handleMythBust}
-                    disabled={isFlipping}
-                    className="btn-primary smooth-transition hover-scale"
-                  >
-                    {isFlipping ? "Revealing..." : "Bust This Myth"}
-                  </Button>
+                  <div>
+                    <Button
+                      onClick={handleMythBust}
+                      disabled={isFlipping}
+                      className="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-full text-lg font-medium transition-all"
+                    >
+                      {isFlipping ? "Revealing..." : "Bust This Myth"}
+                    </Button>
+                  </div>
                 </div>
               ) : (
-                <div className="space-y-6 scale-in">
-                  <h2 className="font-serif font-bold text-2xl md:text-3xl text-green-600">Reality Check</h2>
+                <div className="mt-8 pt-8 border-t border-gray-100 scale-in text-center">
+                  <h2 className="font-serif font-bold text-4xl sm:text-5xl text-gray-900 mb-6">Reality</h2>
 
-                  <p className="text-lg md:text-xl text-gray-700 leading-relaxed">{currentMyth.reality}</p>
+                  <p className="text-xl text-gray-700 leading-relaxed mb-8 max-w-2xl mx-auto">{currentMyth.reality}</p>
 
                   <div className="flex gap-4 justify-center flex-wrap">
-                    <Button onClick={nextMyth} className="btn-primary smooth-transition">
+                    <Button onClick={nextMyth} className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full transition-all">
                       Next Myth →
                     </Button>
-                    <Button onClick={prevMyth} className="btn-secondary smooth-transition">
+                    <Button onClick={prevMyth} className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-full transition-all">
                       ← Previous
                     </Button>
                   </div>
@@ -179,35 +193,30 @@ export default function MythBustersPage() {
           </div>
         </div>
 
-        <div className="flex justify-center space-x-2 mb-8">
-          {myths.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setShowReality(false)
-                setCurrentMythIndex(index)
-              }}
-              className={`w-3 h-3 rounded-full smooth-transition ${
-                index === currentMythIndex ? "bg-indigo-600" : "bg-gray-300 hover:bg-gray-400"
-              }`}
-            />
-          ))}
-        </div>
-
-        <div className="text-center mb-16">
-          <p className="text-gray-500 text-sm">
+        <div className="text-center space-y-4 mb-16">
+          <div className="flex justify-center gap-3">
+            {myths.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setShowReality(false)
+                  setCurrentMythIndex(index)
+                }}
+                className={`w-4 h-4 rounded-full transition-all ${
+                  index === currentMythIndex ? "bg-indigo-600 scale-110" : "bg-gray-200 hover:bg-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+          <p className="text-gray-600 text-sm font-medium">
             Myth {currentMythIndex + 1} of {myths.length}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 text-center">
+        <div className="grid md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
           <div className="card p-6 scale-in">
             <div className="text-3xl font-bold text-indigo-600 mb-2">{myths.length}</div>
             <div className="text-gray-600">Myths Busted</div>
-          </div>
-          <div className="card p-6 scale-in">
-            <div className="text-3xl font-bold text-indigo-600 mb-2">10K+</div>
-            <div className="text-gray-600">Entrepreneurs Educated</div>
           </div>
           <div className="card p-6 scale-in">
             <div className="text-3xl font-bold text-indigo-600 mb-2">100%</div>
@@ -217,16 +226,13 @@ export default function MythBustersPage() {
       </main>
 
       <footer className="bg-white border-t border-gray-200 mt-20">
-        <div className="max-w-4xl mx-auto px-6 py-12 text-center">
-          <div className="flex justify-center items-center space-x-3 mb-4">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">E</span>
-            </div>
-            <span className="font-serif font-bold text-lg text-gray-900">ECell</span>
+        <div className="max-w-6xl mx-auto px-6 py-16 text-center">
+          <div className="flex flex-col items-center justify-center gap-8">
+            <AnimatedLogo />
+            <p className="text-gray-600 text-xl max-w-2xl">
+              Empowering the next generation of entrepreneurs through education and community.
+            </p>
           </div>
-          <p className="text-gray-600">
-            Empowering the next generation of entrepreneurs through education and community.
-          </p>
         </div>
       </footer>
     </div>
