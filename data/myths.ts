@@ -3,9 +3,9 @@ import type { Myth } from "@/lib/types"
 export const mythsDatabase: Myth[] = [
   {
     id: 1,
-    myth: "You need a brand-new, groundbreaking idea.",
+    myth: "You need a lot of money to start a business?",
     reality:
-      "Many successful startups simply improve, iterate, or present existing solutions better than others. Innovation isn't always about reinventing the wheel.",
+      "Nope, many successful startups began with less capital. Freelancing, and lean startup methods can help launch a business on a tight budget",
     icon: "💡",
     category: "Innovation",
     difficulty: "Beginner",
@@ -16,9 +16,9 @@ export const mythsDatabase: Myth[] = [
   },
   {
     id: 2,
-    myth: "Success depends only on the idea.",
+    myth: "Startups are overnight successes.",
     reality:
-      "Execution, adaptability, and relentless effort matter far more. A decent idea + great execution beats a brilliant idea with poor execution.",
+      " Most overnight successes take minimum 5-10 years to become successful",
     icon: "⚡",
     category: "Execution",
     difficulty: "Intermediate",
@@ -29,9 +29,9 @@ export const mythsDatabase: Myth[] = [
   },
   {
     id: 3,
-    myth: "You can do everything alone.",
+    myth: "Starting your own business means you’ll have more free time and total freedom.",
     reality:
-      "Startups are a team sport. Smart hires, feedback, and partnerships are critical to scale and survive in a tough market.",
+      "While you start having control, the early years of entrepreneurship often demand more hours and higher stress than a traditional job. Real freedom comes later.",
     icon: "🤝",
     category: "Team Building",
     difficulty: "Advanced",
